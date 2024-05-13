@@ -1,7 +1,8 @@
 import {
+  SAVE_SONG_VALUE,
   SAVE_SONG_VALUE_FAILED,
   SAVE_SONG_VALUE_SUCCESSFUL,
-} from "./actionTypes";
+} from "./actionType";
 interface SongAction {
   type: string;
   status: boolean;
@@ -26,7 +27,10 @@ const AddSongReducer = (state = initialState, action: SongAction) => {
         ...state,
         status: action.status,
       };
-
+    case SAVE_SONG_VALUE:
+      return {
+        ...state,
+      };
     default:
       return state;
   }

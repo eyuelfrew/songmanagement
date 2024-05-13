@@ -81,7 +81,6 @@ const AddSong = () => {
     dispatch(initSaveSongValue(songInfo));
   };
   useEffect(() => {
-    console.log("status");
     if (status) {
       dispatch(initSaveSongSuccessfull(0));
       navigatTo("/");
