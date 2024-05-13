@@ -52,18 +52,9 @@ const Statistis = () => {
     (state: Rootstate) => state.SongStatisticsReducer
   ) as {
     statistics: {
-      genres: {
-        _id: null | string;
-        count: number;
-      }[];
-      ArtistCount: {
-        _id: null | string;
-        count: number;
-      }[];
-      AlbumCount: {
-        _id: null | string;
-        count: number;
-      }[];
+      uniqueGenreCount: number;
+      uniqueArtistCount: number;
+      uniqueAlbumCount: number;
       GenresSongCount: {
         _id: string;
         count: number;
@@ -75,20 +66,28 @@ const Statistis = () => {
       totalSong: number;
     };
   };
-
-  console.log(statistics);
+  useEffect(() => {
+    if (statistics) {
+      console.log(statistics);
+      console.log("test Worsk");
+      if (!Object.values(statistics)) {
+        console.log("Statistics object has no data");
+      }
+    }
+  }, [statistics]);
   useEffect(() => {
     dispatch(getStatistics());
   }, [dispatch]);
   return (
     <Container>
+      {}
       <Row>
         <Card>
           <div>
             <Title>
               <h2>Artists</h2>
             </Title>
-            <span>{statistics && statistics.ArtistCount[0].count}</span>
+            <span>{statistics && statistics.uniqueArtistCount}</span>
           </div>
         </Card>
         <Card>
@@ -96,7 +95,7 @@ const Statistis = () => {
             <Title>
               <h2>Albums</h2>
             </Title>
-            <span>{statistics && statistics.AlbumCount[0].count}</span>
+            <span>{statistics && statistics.uniqueAlbumCount}</span>
           </div>
         </Card>
         <Card>
@@ -112,14 +111,14 @@ const Statistis = () => {
             <Title>
               <h2>Genres</h2>
             </Title>
-            <span>{statistics && statistics.genres[0].count}</span>
+            <span>{statistics && statistics.uniqueGenreCount}</span>
           </div>
         </Card>
       </Row>
       <GenreContainer>
         <Genreview>
           <h1>Songs In Genres</h1>
-          {statistics &&
+          {statistics && statistics.GenresSongCount.length > 0 ? (
             statistics.GenresSongCount.map(
               (song: { _id: string; count: number }, index: number) => (
                 <div key={index}>
@@ -129,13 +128,18 @@ const Statistis = () => {
                   </h3>
                 </div>
               )
-            )}
+            )
+          ) : (
+            <div>
+              <h1>0</h1>
+            </div>
+          )}
         </Genreview>
       </GenreContainer>
       <GenreContainer>
         <Genreview>
           <h1>Songs In Albums</h1>
-          {statistics &&
+          {statistics && statistics.SongsInAlbum.length > 0 ? (
             statistics.SongsInAlbum.map(
               (song: { _id: string; count: number }, index: number) => (
                 <div key={index}>
@@ -145,7 +149,12 @@ const Statistis = () => {
                   </h3>
                 </div>
               )
-            )}
+            )
+          ) : (
+            <div>
+              <h1>0</h1>
+            </div>
+          )}
         </Genreview>
       </GenreContainer>
     </Container>

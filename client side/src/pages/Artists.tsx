@@ -43,7 +43,7 @@ const Artists = () => {
   return (
     <Container>
       <Wrraper>
-        {data &&
+        {data && data.length > 0 ? (
           data.map(
             (
               stat: { artist: string; albumCount: number; songCount: number },
@@ -82,7 +82,43 @@ const Artists = () => {
                 </div>
               </Card>
             )
-          )}
+          )
+        ) : (
+          <>
+            <Card>
+              <div>
+                <h3>
+                  Artist:{" "}
+                  <span>
+                    {" "}
+                    <>
+                      <br />
+                    </>{" "}
+                    0
+                  </span>
+                </h3>
+              </div>
+              <div>
+                <h3>
+                  Total Album:
+                  <>
+                    <br />
+                  </>{" "}
+                  <span>0</span>
+                </h3>
+              </div>
+              <div>
+                <h3>
+                  Total Song:{" "}
+                  <>
+                    <br />
+                  </>{" "}
+                  <span> 0</span>
+                </h3>
+              </div>
+            </Card>
+          </>
+        )}
       </Wrraper>
     </Container>
   );

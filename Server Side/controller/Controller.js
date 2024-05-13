@@ -82,10 +82,7 @@ export const overAllStatistics = async (req, res) => {
       SongsInAlbum,
       totalSong,
     ] = await Promise.all([
-      Song.aggregate([
-        { $group: { _id: "$genre" } },
-        { $group: { _id: null, count: { $sum: 1 } } },
-      ]),
+      Song.aggregate([{ $group: { _id: "$genre" } }, { $count: "count" }]),
       Song.aggregate([
         { $group: { _id: "$artist" } },
         { $group: { _id: null, count: { $sum: 1 } } },
@@ -98,11 +95,13 @@ export const overAllStatistics = async (req, res) => {
       Song.aggregate([{ $group: { _id: "$album", count: { $sum: 1 } } }]),
       Song.countDocuments(),
     ]);
-
+    const uniqueGenreCount = genres[0]?.count || 0;
+    const uniqueArtistCount = ArtistCount[0]?.count || 0;
+    const uniqueAlbumCount = AlbumCount[0]?.count || 0;
     res.json({
-      genres,
-      ArtistCount,
-      AlbumCount,
+      uniqueGenreCount,
+      uniqueArtistCount,
+      uniqueAlbumCount,
       GenresSongCount,
       SongsInAlbum,
       totalSong,
