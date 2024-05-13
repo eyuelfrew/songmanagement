@@ -1,0 +1,3 @@
+export const INIT_VIEW_SONG = "INIT_VIEW_SONG";
+export const VIEW_SONG_SUCCESS = "VIEW_SONG_SUCCESS";
+export const VIEW_SONG_FAILED = "VIEW_SONG_FAILED";

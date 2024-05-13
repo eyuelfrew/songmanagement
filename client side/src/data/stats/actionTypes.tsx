@@ -1,0 +1,2 @@
+export const INIT_GET_STAT = "INIT_GET_STAT";
+export const GET_STAT_SUCCESS = "GET_STAT_SUCCESS";
