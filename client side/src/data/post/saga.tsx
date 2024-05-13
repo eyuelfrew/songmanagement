@@ -1,11 +1,11 @@
 import { takeEvery, call, put } from "redux-saga/effects";
-import { INIT_SAVE_SONG_VALUE } from "./actionTypes";
+import { SAVE_SONG_VALUE } from "./actionTypes";
 import axios, { AxiosResponse } from "axios";
 import { initSaveSongSuccessfull, initSaveSongValueFaild } from "./actions";
 
 // Create New Song Info Saga
 export default function* AddSongInfoSaga() {
-  yield takeEvery(INIT_SAVE_SONG_VALUE, saveNotesSaga);
+  yield takeEvery(SAVE_SONG_VALUE, saveNotesSaga);
 }
 
 function* saveNotesSaga(action: { songInfo: unknown }) {

@@ -5,7 +5,7 @@ import "./index.css";
 
 import { BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
-import store from "./globalStore/store.tsx";
+import { store } from "./globalStore/store.tsx";
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <Provider store={store}>

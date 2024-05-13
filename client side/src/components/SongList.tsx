@@ -2,11 +2,12 @@ import styled from "@emotion/styled";
 import { MdModeEditOutline, MdDelete } from "react-icons/md";
 import { FaEye } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { initGetSongInfo } from "../data/fetch/action";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import { deleteSongInfo } from "../data/delete/action";
+import { Rootstate } from "../globalStore/store";
 const Container = styled.div`
   padding: 0px 90px;
   height: 100%;
@@ -50,7 +51,7 @@ const OptionButtons = styled.div`
   flex-direction: column;
   padding: 2px 4px;
 `;
-const Button = styled.button`
+const Button = styled.button<{ val: number }>`
   margin: 1px;
   width: 27px;
   height: 27px;
@@ -74,10 +75,11 @@ const AddButton = styled.div`
   cursor: pointer;
 `;
 const SongList = () => {
-  const [songs, setSongs] = useState([]);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { songList } = useSelector((state) => state.SongListReducer);
+  const allSongs = useSelector(
+    (state: Rootstate) => state.SongListReducer.allSongs
+  ) as [];
 
   const handleNavigate = (id: string) => {
     navigate(`/song/${id}`);
@@ -106,14 +108,14 @@ const SongList = () => {
   };
 
   useEffect(() => {
-    if (songList.length === 0) {
-      console.log("asfas");
+    if (allSongs.length === 0) {
+      console.log("no songs at all");
       naigateTo("/");
     }
-  }, [songList]);
+  }, [allSongs]);
+
   useEffect(() => {
     dispatch(initGetSongInfo());
-    setSongs(songs);
   }, []);
   return (
     <Container>
@@ -122,8 +124,8 @@ const SongList = () => {
           <h2>Song Info's</h2>
           <AddButton onClick={handleAddButton}>+ Add New</AddButton>
         </CardHeader>
-        {songList &&
-          songList.map(
+        {allSongs &&
+          allSongs.map(
             (song: {
               _id: string;
               title: string;

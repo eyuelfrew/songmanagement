@@ -20,6 +20,7 @@ function* getAllSongs() {
         createData.push(data[key]);
       }
     }
+    console.log(createData);
     yield put(GetSongSuccess(createData));
   } catch (error) {
     console.log(error);

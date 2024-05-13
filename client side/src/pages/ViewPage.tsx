@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { ViewSongInfo } from "../data/details/action";
+import { Rootstate } from "../globalStore/store";
 const Container = styled.div`
   display: flex;
   justify-content: center;
@@ -34,9 +35,18 @@ const Header = styled.h1`
 const ViewPage = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
-  const { songInfo } = useSelector((state) => state.ViewSongReducer);
+  const { songInfo } = useSelector(
+    (state: Rootstate) => state.ViewSongReducer
+  ) as {
+    songInfo: {
+      title: string;
+      artist: string;
+      album: string;
+      genre: string;
+    };
+  };
   useEffect(() => {
-    dispatch(ViewSongInfo(id));
+    dispatch(ViewSongInfo(id ?? ""));
   }, []);
   return (
     <Container>

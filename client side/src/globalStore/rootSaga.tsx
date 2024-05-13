@@ -1,5 +1,5 @@
 import { all, fork } from "redux-saga/effects";
-import AddSongInfoSaga from "../data/post/sagas";
+import AddSongInfoSaga from "../data/post/saga";
 import GetSongListSaga from "../data/fetch/saga";
 import viewSongDetail from "../data/details/saga";
 import editeSongInfo from "../data/edit/saga";

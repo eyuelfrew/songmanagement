@@ -4,6 +4,7 @@ import SongList from "../components/SongList";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { initGetSongInfo } from "../data/fetch/action";
+import { Rootstate } from "../globalStore/store";
 const SongContainer = styled.div``;
 const EmptySong = styled.div`
   display: flex;
@@ -39,17 +40,19 @@ const Wrraper = styled.div`
 const Songs = () => {
   const navigateTo = useNavigate();
   const dispatch = useDispatch();
-  const { songList } = useSelector((state) => state.SongListReducer);
+  const allSongs = useSelector(
+    (state: Rootstate) => state.SongListReducer.allSongs
+  ) as [];
+  console.log(allSongs);
   const handleNavigate = () => {
     navigateTo("/newsong");
   };
-
   useEffect(() => {
     dispatch(initGetSongInfo());
   }, []);
   return (
     <SongContainer>
-      {songList && songList.length == 0 ? (
+      {allSongs && allSongs.length == 0 ? (
         <>
           <EmptySong>
             <Wrraper>

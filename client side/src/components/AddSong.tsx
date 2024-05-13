@@ -6,6 +6,7 @@ import {
   initSaveSongValue,
 } from "../data/post/actions";
 import { useNavigate } from "react-router-dom";
+import { Rootstate } from "../globalStore/store";
 const SongContainer = styled.div`
   margin-top: 7%;
   display: flex;
@@ -57,7 +58,7 @@ const ResetButton = styled.button`
 const AddSong = () => {
   const navigatTo = useNavigate();
   const dispatch = useDispatch();
-  const { status } = useSelector((state) => state.AddSongReducer);
+  const { status } = useSelector((state: Rootstate) => state.AddSongReducer);
   interface SongInfo {
     title: string;
     album: string;
@@ -73,18 +74,19 @@ const AddSong = () => {
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setSongInfo({ ...songInfo, [e.target.name]: e.target.value });
   };
-  const handleSelect = (e: ChangeEvent<HTMLSelectElement>) => {
-    setSongInfo({ ...songInfo, [e.target.name]: e.target.value });
-  };
+  // const handleSelect = (e: ChangeEvent<HTMLSelectElement>) => {
+  //   setSongInfo({ ...songInfo, [e.target.name]: e.target.value });
+  // };
   const handleSave = () => {
     dispatch(initSaveSongValue(songInfo));
   };
   useEffect(() => {
+    console.log("status");
     if (status) {
       dispatch(initSaveSongSuccessfull(0));
       navigatTo("/");
     }
-  }, [dispatch, status]);
+  }, [status]);
   return (
     <SongContainer>
       <Card>

@@ -9,6 +9,7 @@ import {
 //************ */
 
 export const initGetSongInfo = () => {
+  console.log("test");
   return {
     type: INIT_GET_SONG,
   };
@@ -24,6 +25,7 @@ export const GetSongFaild = () => {
   };
 };
 export const GetSongSuccess = (SongList: unknown) => {
+  console.log("error");
   return {
     type: FEATCHING_GET_SONG_DATA_SUCCESS,
     SongList,

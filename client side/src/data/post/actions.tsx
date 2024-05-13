@@ -1,5 +1,5 @@
 import {
-  INIT_SAVE_SONG_VALUE,
+  SAVE_SONG_VALUE,
   SAVE_SONG_VALUE_FAILED,
   SAVE_SONG_VALUE_SUCCESSFUL,
 } from "./actionTypes";
@@ -12,7 +12,7 @@ export function initSaveSongValue(songInfo: {
   artist: string;
 }) {
   return {
-    type: INIT_SAVE_SONG_VALUE,
+    type: SAVE_SONG_VALUE,
     songInfo,
   };
 }

@@ -1,7 +1,8 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getStatistics } from "../data/stats/action";
 import styled from "@emotion/styled";
+import { Rootstate } from "../globalStore/store";
 const Container = styled.div`
   // width: 95%;
 `;
@@ -47,11 +48,38 @@ const Genreview = styled.div`
 `;
 const Statistis = () => {
   const dispatch = useDispatch();
+  const { statistics } = useSelector(
+    (state: Rootstate) => state.SongStatisticsReducer
+  ) as {
+    statistics: {
+      genres: {
+        _id: null | string;
+        count: number;
+      }[];
+      ArtistCount: {
+        _id: null | string;
+        count: number;
+      }[];
+      AlbumCount: {
+        _id: null | string;
+        count: number;
+      }[];
+      GenresSongCount: {
+        _id: string;
+        count: number;
+      }[];
+      SongsInAlbum: {
+        _id: string;
+        count: number;
+      }[];
+      totalSong: number;
+    };
+  };
 
-  const { statistics } = useSelector((state) => state.SongStatisticsReducer);
+  console.log(statistics);
   useEffect(() => {
     dispatch(getStatistics());
-  }, []);
+  }, [dispatch]);
   return (
     <Container>
       <Row>

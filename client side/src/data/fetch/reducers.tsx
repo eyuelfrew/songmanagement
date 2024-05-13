@@ -4,13 +4,24 @@ import {
   FEATCHING_GET_SONG_DATA_SUCCESS,
 } from "./actionTypes";
 
-const intialState = {
-  songList: [],
+interface AllSongList {
+  allSongs: {
+    _id: string;
+    title: string;
+    album: string;
+    genre: string;
+    artist: string;
+  }[];
+  isFeatching: boolean;
+  isFeatchingFailed: boolean;
+}
+const initialState: AllSongList = {
+  allSongs: [],
   isFeatching: false,
   isFeatchingFailed: false,
 };
 const SongListReducer = (
-  state = intialState,
+  state = initialState,
   action: { type: string; SongList: unknown }
 ) => {
   switch (action.type) {
@@ -22,7 +33,7 @@ const SongListReducer = (
     case FEATCHING_GET_SONG_DATA_SUCCESS:
       return {
         ...state,
-        songList: action.SongList,
+        allSongs: action.SongList,
       };
     case FEATCHING_GET_SONG_DATA_FAILED:
       return {

@@ -4,6 +4,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { ViewSongInfo } from "../data/details/action";
 import { initEditSong } from "../data/edit/action";
 import styled from "@emotion/styled";
+import { Rootstate } from "../globalStore/store";
 
 const Container = styled.div`
   display: flex;
@@ -52,27 +53,45 @@ const ButtonContainer = styled.div`
 `;
 const EditSong = () => {
   const navigateTo = useNavigate();
-  const dispatch = useDispatch();
-  const { editResponse } = useSelector((state) => state.UpdateSOngInformation);
 
-  const { id } = useParams();
-  const { songInfo } = useSelector((state) => state.ViewSongReducer);
+  const dispatch = useDispatch();
+  const { editResponse } = useSelector(
+    (state: Rootstate) => state.UpdateSOngInformation
+  ) as {
+    editResponse: {
+      status: number;
+      message: string;
+    };
+  };
+  console.log(editResponse);
+  const id = useParams().id;
+  const { songInfo } = useSelector(
+    (state: Rootstate) => state.ViewSongReducer
+  ) as {
+    songInfo: {
+      title: string;
+      artist: string;
+      album: string;
+      genre: string;
+    };
+  };
+  console.log(songInfo.title);
   const [title, setTitle] = useState(songInfo ? songInfo.title : "");
   const [artist, setArtist] = useState(songInfo ? songInfo.artist : "");
   const [album, setAlbum] = useState(songInfo ? songInfo.album : "");
   const [genre, setGenre] = useState(songInfo ? songInfo.genre : "");
   const handleSubmit = (event: { preventDefault: () => void }) => {
     event.preventDefault();
-    dispatch(initEditSong(id, { title, artist, album, genre }));
+    dispatch(initEditSong(id ?? "", { title, artist, album, genre }));
   };
 
   useEffect(() => {
     if (editResponse.status == 1) {
       navigateTo("/");
     }
-  }, [editResponse]);
+  }, [editResponse, navigateTo]);
   useEffect(() => {
-    dispatch(ViewSongInfo(id));
+    dispatch(ViewSongInfo(id ?? ""));
   }, []);
   useEffect(() => {
     if (songInfo) {

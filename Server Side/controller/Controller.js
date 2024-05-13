@@ -18,9 +18,8 @@ export const updateSong = async (req, res) => {
   const { id } = req.params;
   const data = req.body;
   try {
-    const song = await Song.findByIdAndUpdate(id, data, { new: true });
-    if (song)
-      return res.json({ status: 1, message: "Song Info Updated!", song: song });
+    const song = await Song.findByIdAndUpdate(id, data);
+    if (song) return res.json({ status: 1, message: "Song Info Updated!" });
   } catch (error) {
     console.log(error);
   }

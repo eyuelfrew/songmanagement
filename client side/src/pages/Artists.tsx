@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getArtistsStat } from "../data/fetchArtists/action";
 import styled from "@emotion/styled";
-import { ArtistState } from "../data/fetchArtists/reducer";
+import { Rootstate } from "../globalStore/store";
 const Container = styled.div`
   display: flex;
   justify-content: center;
@@ -34,7 +34,9 @@ const Card = styled.div`
 `;
 const Artists = () => {
   const dispatch = useDispatch();
-  const { data } = useSelector((state) => state.ArtistStaticsReducer);
+  const { data } = useSelector(
+    (state: Rootstate) => state.ArtistStaticsReducer
+  );
   useEffect(() => {
     dispatch(getArtistsStat());
   }, []);
